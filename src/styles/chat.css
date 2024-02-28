@@ -182,14 +182,14 @@
 
 .chat__main-role {
     width: 24px;
+    height: 24px;
     display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .chat__main-text {
     display: flex;
     flex-direction: column;
+    align-self: center;
     gap: var(--space-6-s);
     line-height: 20px;
 }

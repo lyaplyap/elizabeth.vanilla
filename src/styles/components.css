@@ -6,6 +6,28 @@
     border-radius: var(--border-radius-5-s);
 }
 
+/* Icon */
+.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon__size_s {
+    width: 16px;
+    height: 16px;
+}
+
+.icon__size_m {
+    width: 20px;
+    height: 20px;
+}
+
+.icon__size_xl {
+    width: 24px;
+    height: 24px;
+}
+
 /* Button CSS */
 .button {
     border: none;
