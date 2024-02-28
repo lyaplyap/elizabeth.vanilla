@@ -1,0 +1,227 @@
+/* App CSS */
+.app {
+    width: 100%;
+    max-width: 1280px;
+    height: 100%;
+    padding: var(--space-10-s);
+
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: var(--space-10-s);
+
+    color: var(--color-text-primary);
+}
+
+/* Menu CSS */
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8-s);
+}
+
+.assistants {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-10-s);
+
+    padding: var(--space-8-s) var(--space-6-s);
+}
+
+.logo {
+    cursor: pointer;
+}
+
+.logo > a {
+    all: unset;
+
+    display: flex;
+    gap: var(--space-6-s);
+    align-items: center;
+}
+
+.logo__title {
+    font-family: var(--font-family-secondary);
+    font-weight: var(--weight-bold);
+    font-size: var(--size-l);
+}
+
+.assistant-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2-s);
+}
+
+.assistant-list__title {
+    font-family: var(--font-family);
+    font-size: var(--size-s);
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+}
+
+.assistant-list__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2-s);
+}
+
+.assistant-list__list-item {
+    border-radius: var(--border-radius-4-s);
+    cursor: pointer;
+    width: 100%;
+}
+
+.assistant-list__list-item_selected {
+    outline: 0.50px solid #2e2e3b;
+    background-color: var(--color-bg-tertiary);
+}
+
+.assistant-list__list-item:hover,
+.assistant-list__list-item > button:focus-visible {
+    background-color: var(--color-bg-tertiary);
+    border-radius: var(--border-radius-4-s);
+}
+
+.assistant-list__list-item > button {
+    border: none;
+    outline: none;
+    background-color: initial;
+    padding: var(--space-6-s);
+    cursor: inherit;
+    width: 100%;
+    height: 100%;
+
+    font-family: inherit;
+    font-size: inherit;
+
+    display: flex;
+    gap: var(--space-6-s);
+    align-items: start;
+}
+
+.assistant-list__list-item-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+    align-items: start;
+    width: 100%;
+    overflow: hidden;
+}
+
+.assistant-list__list-item-title {
+    color: var(--color-text-primary);
+    text-align: left;
+    width: 100%;
+    min-width: 0;
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.assistant-list__list-item-description {
+    color: var(--color-text-secondary);
+    font-size: var(--size-xs);
+}
+
+/* Chat CSS */
+.chat {
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+.chat__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-4-s) var(--space-8-s);
+    border-bottom: 0.5px solid #3a3a40;
+}
+
+.chat__header-left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4-s);
+}
+
+.chat__header-left > * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat__header-title {
+    color: var(--color-text-primary);
+    font-size: var(--size-s);
+}
+
+.chat__header-description {
+    color: var(--color-text-secondary);
+    font-size: var(--size-xs);
+}
+
+.chat__main {
+    padding: var(--space-12-s) var(--space-8-s) 0 var(--space-8-s);
+    overflow: auto;
+}
+
+.chat__main-messages {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4-s);
+}
+
+.chat__main-message {
+    display: flex;
+    gap: var(--space-8-s);
+    align-items: flex-start;
+    padding: var(--space-8-s);
+    background-color: var(--color-bg-quaternary);
+    border-radius: var(--border-radius-5-s);
+}
+
+.chat__main-role {
+    width: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chat__main-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6-s);
+    line-height: 20px;
+}
+
+.chat__main-text ol,
+.chat__main-text ul {
+    list-style: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4-s);
+}
+
+.chat__main-text li {
+    margin-left: var(--space-8-s);
+    padding-left: var(--space-2-s);
+    list-style: auto;
+}
+
+.chat__footer {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    align-self: flex-end;
+    justify-content: center;
+    padding: var(--space-16-s) var(--space-8-s) var(--space-32-s) var(--space-8-s);
+}
+
+.chat__footer-input {
+    background-color: var(--color-bg-quaternary);
+    max-width: 652px;
+}
+
+.chat__footer-button {
+    margin-right: calc(-1 * var(--space-6-s));
+}
