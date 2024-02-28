@@ -1,14 +1,19 @@
-### Elizabeth AI Vanilla Client
+# Elizabeth AI Vanilla Client
+
+### Dev
 
 * Итоговая вёрстка находится в директории [src](./src/)
 
 * Для запуска проекта в dev-режиме:
-
+    
     * Установить [Node.js](https://nodejs.org/ru)
+    
     * Находясь в директории проекта, ввести в терминале следующие команды:
-        
         ```bash
         npm install
+        ```
+
+        ```bash
         npm run dev
         ```
 
