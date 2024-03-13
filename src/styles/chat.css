@@ -70,7 +70,7 @@
     width: 100%;
 }
 
-.assistant-list__list-item_selected {
+.assistant-list__list-item_active {
     outline: 0.50px solid #2e2e3b;
     background-color: var(--color-bg-tertiary);
 }
@@ -135,6 +135,9 @@
     align-items: center;
     justify-content: space-between;
     padding: var(--space-4-s) var(--space-8-s);
+}
+
+.chat__header:not(:empty) {
     border-bottom: 0.5px solid #3a3a40;
 }
 
