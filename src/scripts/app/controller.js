@@ -11,7 +11,11 @@ export class AppController {
      */
     constructor(assistants = []) {
         this._model = new AssistantModel(assistants);
-        this._menuView = new MenuView({ assistants, onClick: this.onAssistantChange.bind(this) });
+
+        this._menuView = new MenuView({
+            assistants,
+            onClick: this._onAssistantChange.bind(this)
+        });
     }
 
     /**
@@ -19,21 +23,33 @@ export class AppController {
      * @param {Assistant} assistant Объект ассистента
      */
     _updateChatView(assistant) {
-        this._chatView = new ChatView(assistant);
+        this._chatView = new ChatView({
+            assistant,
+            onSend: this._onMessageSend.bind(this)
+        });
+
         this._chatView.render();
     }
-    
+
     /**
      * Обработчик переключения ассистента в боковом меню
      * @param {String} id Идентификатор ассистента
      */
-    onAssistantChange(id) {
+    _onAssistantChange(id) {
         const assistant = this._model.getAssistantById(id);
 
         this._updateChatView(assistant);
     }
 
-    onMessageAdd() {}
+    /**
+     * Обработчик отправки сообщения в чате
+     * @param {String} text Текст сообщения 
+     */
+    _onMessageSend(text) {
+        const id = this._menuView._getActiveAssistantId();
+
+        this._model.addMessage({ text, role: 'user' }, id);
+    }
 
     init() {
         this._menuView.render();

@@ -6,27 +6,6 @@ import { getModelIcon } from '../../shared/utils';
 import { Assistant, Message } from '../../shared/types';
 
 /**
- * Создаёт компонент сообщения из чата
- * @param {Message} message Сообщение
- */
-export const createMessageElement = ({ role, text }) => {
-    const element = document.createElement('li');
-
-    element.classList.add('chat__main-message');
-
-    element.innerHTML = `
-        <span class="icon icon__size_l chat__main-role">
-            <img src="${icons[role]}" />
-        </span>
-        <span class="text text__weight_light chat__main-text">
-            ${marked.parse(text)}
-        </span>
-    `;
-
-    return element;
-};
-
-/**
  * Создаёт компонент шапки чата с ассистентом
  * @param {Assistant} assistant Объект ассистента
  */
@@ -57,6 +36,98 @@ export const createHeaderElement = ({ title, description, model }) => {
             </button>
         </div>
     `;
+
+    return element;
+};
+
+/**
+ * Создаёт компонент сообщения из чата
+ * @param {Message} message Сообщение
+ */
+export const createMessageElement = ({ role, text }) => {
+    const element = document.createElement('li');
+
+    element.classList.add('chat__main-message');
+
+    element.innerHTML = `
+        <span class="icon icon__size_l chat__main-role">
+            <img src="${icons[role]}" />
+        </span>
+        <span class="text text__weight_light chat__main-text">
+            ${marked.parse(text)}
+        </span>
+    `;
+
+    return element;
+};
+
+/**
+ * Создаёт компонент список сообщений из чата
+ * @param {Message[]} messages Список сообщений
+ */
+const createMessagesElement = (messages) => {
+    const element = document.createElement('ul');
+    const children = messages.map((message) => createMessageElement(message));
+    
+    element.classList.add('chat__main-messages');
+    element.append(...children);
+
+    return element;
+};
+
+/**
+ * Создаёт компонент с основным контентом чата
+ * @param {Message[]} messages Список сообщений
+ */
+export const createMainElement = (messages) => {
+    const element = document.createElement('div');
+    const child = createMessagesElement(messages);
+
+    element.classList.add('chat__main');
+    element.appendChild(child);
+
+    return element;
+};
+
+/**
+ * Создаёт компонент поля для ввода запроса
+ */
+const createInputElement = () => {
+    const element = document.createElement('span');
+
+    element.classList.add('input', 'input__size_l', 'chat__footer-input');
+
+    element.innerHTML = `
+        <input placeholder="Let the magic begin. Ask a question" />
+        <button
+            class="button button__size_l button__view_clear button__width_auto button__align_center chat__footer-button"
+            aria-label="Send"
+        >
+            <span class="icon icon__size_m">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <mask id="mask0_1_451" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+                        <rect width="20" height="20" fill="#D9D9D9"/>
+                    </mask>
+                    <g mask="url(#mask0_1_451)">
+                        <path d="M2.5 16.6667V3.33334L18.3333 10L2.5 16.6667ZM4.16667 14.1667L14.0417 10L4.16667 5.83334V8.75001L9.16667 10L4.16667 11.25V14.1667Z" fill="currentColor"/>
+                    </g>
+                </svg>                                
+            </span>
+        </button>
+    `;
+
+    return element;
+};
+
+/**
+ * Создаёт компонент футера (подвала) чата с ассистентом
+ */
+export const createFooterElement = () => {
+    const element = document.createElement('footer');
+    const childElement = createInputElement();
+
+    element.classList.add('chat__footer');
+    element.appendChild(childElement);
 
     return element;
 };

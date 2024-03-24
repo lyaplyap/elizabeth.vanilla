@@ -57,7 +57,6 @@ export class MenuView {
 
     /**
      * Обработчик нажатия на элемент бокового меню
-     * @param {String} id Идентификатор ассистента
      */
     click({ currentTarget }) {
         const id = currentTarget.getAttribute('assistant-id');
