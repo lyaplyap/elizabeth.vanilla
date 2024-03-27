@@ -8,7 +8,7 @@ export class MenuView {
      * Конструктор представления бокового меню
      * @param {Object} props
      * @param {Assistant[]} props.assistants 
-     * @param {(id: string) => void} props.onClick
+     * @param {(id: string) => Promise<void>} props.onClick
      */
     constructor(props) {
         const { assistants, onClick } = props;
@@ -31,7 +31,7 @@ export class MenuView {
      * Возвращает идентификатор активного ассистента
      * @returns {String}
      */
-    _getActiveAssistantId() {
+    getActiveAssistantId() {
         const assistant = this._getActiveAssistant();
 
         if (!assistant) {
@@ -58,15 +58,15 @@ export class MenuView {
     /**
      * Обработчик нажатия на элемент бокового меню
      */
-    click({ currentTarget }) {
+    async click({ currentTarget }) {
         const id = currentTarget.getAttribute('assistant-id');
-        const activeId = this._getActiveAssistantId();
+        const activeId = this.getActiveAssistantId();
 
         if (id === activeId) {
             return;
         }
 
-        this._onClick(id);
+        await this._onClick(id);
         this._onToggle(id);
     }
 

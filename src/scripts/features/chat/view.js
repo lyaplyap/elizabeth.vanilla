@@ -15,7 +15,7 @@ export class ChatView {
      * Конструктор представления чата с ассистентом
      * @param {Object} props
      * @param {Assistant} props.assistant 
-     * @param {(text: string) => void} props.onSend
+     * @param {(text: string) => Promise<void>} props.onSend
      */
     constructor(props) {
         const { assistant, onSend } = props;
@@ -85,15 +85,12 @@ export class ChatView {
         }
 
         const text = input?.value;
-        const message = { role: 'user', text };
 
         if (!text) {
             return;
         }
 
         this._onSend(text);
-        this.renderNewMessage(message);
-
         this._clearInput(input);
     }
 

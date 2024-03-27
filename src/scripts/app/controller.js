@@ -1,6 +1,7 @@
 import { ChatView } from '../features/chat/view';
 import { MenuView } from '../features/menu/view';
-import { Assistant } from '../shared/types';
+import { Assistant, Message } from '../shared/types';
+import * as api from '../shared/api';
 
 import { AssistantModel } from './model';
 
@@ -35,20 +36,54 @@ export class AppController {
      * Обработчик переключения ассистента в боковом меню
      * @param {String} id Идентификатор ассистента
      */
-    _onAssistantChange(id) {
-        const assistant = this._model.getAssistantById(id);
+    async _onAssistantChange(id) {
+        const cachedAssistant = this._model.getAssistantById(id);
+        const hasMessages = Boolean(cachedAssistant.messages);
 
-        this._updateChatView(assistant);
+        if (!hasMessages) {
+            const serverAssistant = await api.getAssistant(id);
+
+            this._model.updateAssistant(serverAssistant);
+            this._updateChatView(serverAssistant);
+
+            return;
+        }
+
+        this._updateChatView(cachedAssistant);
+    }
+
+    /**
+     * Обработчик добавления нового сообщения
+     * @param {Message} message Объект сообщения
+     * @param {String} id Идентификатор ассистента
+     */
+    _onMessageAdd(message, id) {
+        this._model.addMessage(message, id);
+        this._chatView.renderNewMessage(message);
     }
 
     /**
      * Обработчик отправки сообщения в чате
-     * @param {String} text Текст сообщения 
+     * @param {String} userText Текст пользовательского сообщения 
      */
-    _onMessageSend(text) {
-        const id = this._menuView._getActiveAssistantId();
+    async _onMessageSend(userText) {
+        const id = this._menuView.getActiveAssistantId();
 
-        this._model.addMessage({ text, role: 'user' }, id);
+        const userMessage = {
+            text: userText,
+            role: 'user'
+        };
+
+        this._onMessageAdd(userMessage, id);
+
+        const assistantText = await api.createMessage(id, userText);
+
+        const assistantMessage = {
+            text: assistantText,
+            role: 'assistant'
+        };
+
+        this._onMessageAdd(assistantMessage, id);
     }
 
     init() {

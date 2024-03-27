@@ -1,6 +1,12 @@
 import { AppController } from './app/controller';
-import { ASSISTANTS } from './shared/constants';
+import { getAssistants } from './shared/api';
 
-const app = new AppController(ASSISTANTS);
+const start = async () => {
+    const assistants = await getAssistants();
 
-document.addEventListener('DOMContentLoaded', app.init());
+    const app = new AppController(assistants);
+
+    app.init();
+};
+
+document.addEventListener('DOMContentLoaded', start);

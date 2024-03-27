@@ -37,8 +37,7 @@ export class AssistantModel {
      */
     _createInitialAssistant(assistant) {
         const initialAssistant = {
-            instruction: '',
-            messages: []
+            instruction: ''
         };
 
         return {
@@ -62,6 +61,23 @@ export class AssistantModel {
     }
 
     /**
+     * Обновляет объект ассистента в списке или добавляет, если его ранее там не было
+     * @param {Assistant} newAssistant Новый объект ассистента
+     */
+    updateAssistant(newAssistant) {
+        const { id } = newAssistant;
+        const oldAssistant = this.getAssistantById(id);
+
+        if (!oldAssistant) {
+            this._assistants.push(newAssistant);
+
+            return;
+        }
+
+        Object.assign(oldAssistant, newAssistant);
+    }
+
+    /**
      * Возвращает данные ассистента для отображения
      * @param {String} assistantId Идентификатор ассистента
      */
@@ -69,7 +85,7 @@ export class AssistantModel {
         const assistant = this.getAssistantById(id);
 
         if (!assistant) {
-            throw new Error('ASSISTANT_NOT_FOUND');
+            throw new Error('NOT_FOUND');
         }
 
         const { title, description, model } = assistant;
