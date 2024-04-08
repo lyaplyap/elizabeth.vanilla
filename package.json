@@ -5,7 +5,7 @@
     "source": "./src/index.html",
     "scripts": {
         "dev": "parcel",
-        "build": "parcel build --no-source-maps --public-url ./",
+        "build": "parcel build --public-url ./",
         "deploy": "rm -rf dist && npm run build && gh-pages -d dist"
     },
     "homepage": "https://lyaplyap.github.io/elizabeth.vanilla",
